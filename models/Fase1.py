@@ -42,6 +42,11 @@ class Fase1:
         self.rectToilet2.centerx=30
         self.rectToilet2.centery=375
 
+        self.imagemEsqueleto = pygame.image.load('./imagens/fase1/esqueleto.png')
+        self.rectEsqueleto = self.imagemEsqueleto.get_rect()
+        self.rectEsqueleto.centerx=340
+        self.rectEsqueleto.centery=375
+
 
     def colocar(self, superficie):
         superficie.blit(self.imagemBarra1, self.rectBarra1)
@@ -52,3 +57,4 @@ class Fase1:
         superficie.blit(self.imagemBarra3, self.rectBarra3)
         superficie.blit(self.imagemCama2, self.rectCama2)
         superficie.blit(self.imagemToilet2, self.rectToilet2)
+        superficie.blit(self.imagemEsqueleto, self.rectEsqueleto)

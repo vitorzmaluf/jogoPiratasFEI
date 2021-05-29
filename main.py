@@ -5,7 +5,8 @@ from pygame.locals import *
 
 
 from models.Player import Player
-from models.Fase1 import Fase1
+from models.FaseFinal import FaseFinal
+#from models.Fase1 import Fase1
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 400
@@ -23,13 +24,14 @@ def pirata():
     player = Player()
     fase1 = Fase1()
     fase2= Fase2()
+    fasefinal = FaseFinal()
 
     imagemFundo = pygame.image.load('./imagens/cenario/bkgrnd.png')
     # Run until the user asks to quit
     running = True
 
-    player.movimento()
     while running:
+        player.movimento()
         # Did the user click the window close button?
 
         for event in pygame.event.get():
@@ -50,7 +52,8 @@ def pirata():
                 running = False
         
         screen.blit(imagemFundo, [0, 0])
-        fase2.colocar(screen)
+        #fase2.colocar(screen)
+        fasefinal.colocar(screen)
         player.colocar(screen)
 
         pygame.display.update()

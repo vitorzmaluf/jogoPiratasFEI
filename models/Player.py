@@ -3,14 +3,16 @@ import pygame
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.ImagemPlayer = pygame.image.load('./imagens/player.png')
 
+        self.ImagemPlayer = pygame.image.load('./imagens/player.png')
         self.rect = self.ImagemPlayer.get_rect()
         self.rect.centerx=600
         self.rect.centery=300
 
         self.vida = True
+        self.rotatcao = False
         self.velocidade = 20
+        
         # self.surf = pygame.Surface((75, 25))
         # self.surf.fill((255, 255, 255))
     
@@ -22,8 +24,9 @@ class Player(pygame.sprite.Sprite):
                 self.rect.right = 800
             if self.rect.bottom > 400:
                 self.rect.bottom = 400
-            if self.rect.top <= 0:
-                self.rect.top = 0
+            if self.rect.top < 60:
+                self.rect.top = 60
+
 
     def colocar(self, superficie):
         superficie.blit(self.ImagemPlayer, self.rect)

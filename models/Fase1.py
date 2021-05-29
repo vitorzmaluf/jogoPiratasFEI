@@ -47,6 +47,22 @@ class Fase1:
         self.rectEsqueleto.centerx=340
         self.rectEsqueleto.centery=375
 
+        self.imagemParede = pygame.image.load('./imagens/fase1/parede-do-navio.jpg')
+        self.rectParede = self.imagemParede.get_rect()
+        self.rectParede.centerx=400
+        self.rectParede.centery=50
+
+        self.imagemPorta = pygame.image.load('./imagens/fase1/porta.png')
+        self.rectPorta = self.imagemPorta.get_rect()
+        self.rectPorta.centerx=400
+        self.rectPorta.centery=50
+
+        self.imagemCadeado = pygame.image.load('./imagens/fase1/cadeado-da-porta.png')
+        self.rectCadeado = self.imagemCadeado.get_rect()
+        self.rectCadeado.centerx=375
+        self.rectCadeado.centery=55
+
+
 
     def colocar(self, superficie):
         superficie.blit(self.imagemBarra1, self.rectBarra1)
@@ -58,3 +74,6 @@ class Fase1:
         superficie.blit(self.imagemCama2, self.rectCama2)
         superficie.blit(self.imagemToilet2, self.rectToilet2)
         superficie.blit(self.imagemEsqueleto, self.rectEsqueleto)
+        superficie.blit(self.imagemParede, self.rectParede)
+        superficie.blit(self.imagemPorta, self.rectPorta)
+        superficie.blit(self.imagemCadeado, self.rectCadeado)

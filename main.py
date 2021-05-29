@@ -2,6 +2,7 @@ from models.Fase1 import Fase1
 from models.Fase2 import Fase2
 import pygame, sys
 from pygame.locals import *
+from time import sleep
 
 
 from models.Player import Player
@@ -28,8 +29,17 @@ def pirata():
     # Run until the user asks to quit
     running = True
 
-    player.movimento()
+    fases = [fase1, fase2]
+    faseAtual = fases[0]
     while running:
+        i = 0
+        if faseAtual.proximaFase:
+            sleep(2);##TODO verificar se é a ultima fase
+            i += 1
+            faseAtual = fases[i]
+        
+        player.movimento(faseAtual.objetos)#TODO nao deixar jogador atravessar objetos
+
         # Did the user click the window close button?
 
         for event in pygame.event.get():
@@ -43,6 +53,12 @@ def pirata():
                     player.rect.top -= player.velocidade
                 if event.key == pygame.K_DOWN:
                     player.rect.bottom += player.velocidade
+                
+                #Evento de ação: checa colisões com os objetos chave
+                if event.key == pygame.K_SPACE:
+                    faseAtual.checaColisoes(player)
+                    # while pygame.key.get_pressed()[pygame.K_SPACE]:
+                    #     print("espaco apertado")
 
                 screen.fill((0,0,0))
                     
@@ -50,7 +66,7 @@ def pirata():
                 running = False
         
         screen.blit(imagemFundo, [0, 0])
-        fase2.colocar(screen)
+        faseAtual.colocar(screen)
         player.colocar(screen)
 
         pygame.display.update()

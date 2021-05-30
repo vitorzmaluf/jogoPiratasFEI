@@ -38,7 +38,9 @@ def pirata():
     running = True
 
     fases = [fase1, fase2, fase3, fasefinal]
-    faseAtual = fases[0]
+
+    faseAtual = fasefinal
+    #fases[0]
     while running:
         if faseAtual.proximaFase:
             sleep(2);##TODO verificar se é a ultima fase
@@ -77,7 +79,7 @@ def pirata():
                 
                 #Evento de ação: checa colisões com os objetos chave
                 if event.key == pygame.K_SPACE:
-                    if(faseAtual != fasefinal):
+                    if(faseAtual != fases[3]):
                         faseAtual.checaColisoes(player)
                         print('test')
                     else:
@@ -103,8 +105,10 @@ def pirata():
                     #retornar para posicao original
                     if(boss.rect.left < 650):
                         boss.rect.right += 2
+                        boss.flip = 1
                     else:
-                        ran = random.randint( 0, 4000 )
+                        boss.flip = 0
+                        ran = random.randint( 0, 3000 )
                         if(ran < 100):
                             boss.velocidade = -boss.velocidade
                             ran_atk = random.randint( 0, 200 )

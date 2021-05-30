@@ -4,8 +4,11 @@ import random
 idleCount = 0
 
 class Boss(pygame.sprite.Sprite):
-    ImagemBossArr = []
-    ImagemBossFlipArr = []
+    ImagemBossWalkArr = []
+    ImagemBossWalkFlipArr = []
+
+    ImagemBossAtkArr = []
+    ImagemBossAtkFlipArr = []
 
     ''' State = 0 -> Await, 
         State = 1 -> Attack,
@@ -13,7 +16,16 @@ class Boss(pygame.sprite.Sprite):
 
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.ImagemBossArr = [
+        self.ImagemBossAtkArr = [
+          pygame.image.load('./imagens/barba_ruiva_new/ATTACK_000.png')
+        , pygame.image.load('./imagens/barba_ruiva_new/ATTACK_001.png')
+        , pygame.image.load('./imagens/barba_ruiva_new/ATTACK_002.png')
+        , pygame.image.load('./imagens/barba_ruiva_new/ATTACK_003.png')
+        , pygame.image.load('./imagens/barba_ruiva_new/ATTACK_004.png')
+        , pygame.image.load('./imagens/barba_ruiva_new/ATTACK_005.png')
+        , pygame.image.load('./imagens/barba_ruiva_new/ATTACK_006.png')]
+
+        self.ImagemBossWalkArr = [
           pygame.image.load('./imagens/barba_ruiva_new/WALK_000.png')
         , pygame.image.load('./imagens/barba_ruiva_new/WALK_001.png')
         , pygame.image.load('./imagens/barba_ruiva_new/WALK_002.png')
@@ -23,10 +35,25 @@ class Boss(pygame.sprite.Sprite):
         , pygame.image.load('./imagens/barba_ruiva_new/WALK_006.png')]
 
 
-        self.ImagemBossFlipArr = [pygame.transform.flip(self.ImagemBossArr[0], True, False) , pygame.transform.flip(self.ImagemBossArr[1], True, False), pygame.transform.flip(self.ImagemBossArr[2], True, False), pygame.transform.flip(self.ImagemBossArr[3], True, False), pygame.transform.flip(self.ImagemBossArr[4], True, False), pygame.transform.flip(self.ImagemBossArr[5], True, False), pygame.transform.flip(self.ImagemBossArr[6], True, False)]
 
-        self.ImagemBoss = pygame.image.load('./imagens/barba_ruiva_new/idle_0.png')
-        self.ImagemBossFlip = pygame.transform.flip(self.ImagemBoss, True, False)
+
+        self.ImagemBossFlipWalkArr = [pygame.transform.flip(self.ImagemBossWalkArr[0], True, False),
+                                      pygame.transform.flip(self.ImagemBossWalkArr[1], True, False), 
+                                      pygame.transform.flip(self.ImagemBossWalkArr[2], True, False), 
+                                      pygame.transform.flip(self.ImagemBossWalkArr[3], True, False), 
+                                      pygame.transform.flip(self.ImagemBossWalkArr[4], True, False), 
+                                      pygame.transform.flip(self.ImagemBossWalkArr[5], True, False), 
+                                      pygame.transform.flip(self.ImagemBossWalkArr[6], True, False)]
+
+        self.ImagemBossAtkFlipArr = [pygame.transform.flip(self.ImagemBossAtkArr[0], True, False),
+                                      pygame.transform.flip(self.ImagemBossAtkArr[1], True, False), 
+                                      pygame.transform.flip(self.ImagemBossAtkArr[2], True, False), 
+                                      pygame.transform.flip(self.ImagemBossAtkArr[3], True, False), 
+                                      pygame.transform.flip(self.ImagemBossAtkArr[4], True, False), 
+                                      pygame.transform.flip(self.ImagemBossAtkArr[5], True, False), 
+                                      pygame.transform.flip(self.ImagemBossAtkArr[6], True, False)]
+
+        self.ImagemBossFlip = self.ImagemBossWalkArr[0]
         
         self.rect = self.ImagemBossFlip.get_rect()
         self.rect.centerx=650
@@ -36,10 +63,18 @@ class Boss(pygame.sprite.Sprite):
         
         self.velocidade = 1
         self.bossState = 0
+        self.flip = 0
 
 
     def colocar(self, superficie, n):
-        superficie.blit(self.ImagemBossFlipArr[n], self.rect)
+        if(self.bossState == 0):
+            if(self.flip == 1):
+                superficie.blit(self.ImagemBossWalkArr[n], self.rect)
+            else:
+                superficie.blit(self.ImagemBossFlipWalkArr[n], self.rect)
+        elif(self.bossState == 1):
+            superficie.blit(self.ImagemBossAtkFlipArr[n], self.rect)
+
 
     def movimento(self):
         if self.rect.left <= 0:

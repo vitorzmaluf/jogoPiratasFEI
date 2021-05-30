@@ -22,7 +22,7 @@ def pirata():
     pygame.init()
     # Set up the drawing window
     screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
-    pygame.display.set_caption("Pirata")
+    pygame.display.set_caption("ARG!")
 
     player = Player()
     boss = Boss()
@@ -44,17 +44,13 @@ def pirata():
         if faseAtual.proximaFase:
             sleep(2);##TODO verificar se é a ultima fase
             i += 1
+            faseAtual.__del__()
             faseAtual = fases[i]
         
         player.movimento(faseAtual.objetos)#TODO nao deixar jogador atravessar objetos
 
         # Did the user click the window close button?
         keys = pygame.key.get_pressed()
-
-        # keys[0] = keys[K_LEFT]
-        # keys[1] = keys[K_RIGHT]
-        # keys[2] = keys[K_UP]
-        # keys[3] = keys[K_DOWN]
         if(player.livre):
             if keys[K_LEFT]:
                 player.rect.left -= player.velocidade
@@ -64,6 +60,9 @@ def pirata():
                 player.rect.top -= player.velocidade
             elif keys[K_DOWN]:
                 player.rect.bottom += player.velocidade
+            # if keys[K_SPACE]:
+            #     # sleep(1)
+            #     # faseAtual.checaColisoes(player) 
 
         for event in pygame.event.get():
             print(event)

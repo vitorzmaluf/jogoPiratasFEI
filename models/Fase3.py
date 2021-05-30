@@ -14,6 +14,8 @@ class Fase3:
 
         self.mostrarCifra = False
         self.mostrarMapa = False
+        self.mostrarFrascoAmarelo = True
+        self.mostrarChave = False
 
         self.superficie = None
 
@@ -175,10 +177,14 @@ class Fase3:
         self.rectUpHolst2.centerx=680
         self.rectUpHolst2.centery=376
 
-        self.imagemBauAberto = pygame.image.load('./imagens/fase3/closed-chest.png')
-        self.imagemBauFechado = pygame.image.load('./imagens/fase3/opened-chest.png')
+        self.imagemBauFechado = pygame.image.load('./imagens/fase3/closed-chest.png')
+        self.imagemBauAberto = pygame.image.load('./imagens/fase3/opened-chest.png')
 
-        self.rectBauAberto = self.imagemUpHolst.get_rect()
+        self.rectBauFechado = self.imagemBauFechado.get_rect()
+        self.rectBauFechado.centerx=685
+        self.rectBauFechado.centery=363
+
+        self.rectBauAberto = self.imagemBauAberto.get_rect()
         self.rectBauAberto.centerx=685
         self.rectBauAberto.centery=363
 
@@ -245,6 +251,11 @@ class Fase3:
         self.rectCifra.centerx=400
         self.rectCifra.centery=200
 
+        self.imagemChave = pygame.image.load('./imagens/fase3/chave.png')
+        self.rectChave = self.imagemChave.get_rect()
+        self.rectChave.centerx=325
+        self.rectChave.centery=55
+
 
         self.rects =[
             self.rectParede,
@@ -278,8 +289,7 @@ class Fase3:
             self.rectMesinha4,
             self.rectUpHolst1,
             self.rectUpHolst2,
-            self.rectBauAberto,
-            self.rectFrascoAmarelo,
+            self.rectBauFechado,
             self.rectFrascoAzul,
             self.rectFrascoPreto,
             self.rectFrascoRoxo,
@@ -322,8 +332,7 @@ class Fase3:
             self.imagemMesinha,
             self.imagemUpHolst,
             self.imagemUpHolst,
-            self.imagemBauAberto,
-            self.imagemFrascoAmarelo,
+            self.imagemBauFechado,
             self.imagemFrascoAzul,
             self.imagemFrascoPreto,
             self.imagemFrascoRoxo,
@@ -344,6 +353,14 @@ class Fase3:
         else:
             superficie.blit(self.imagemFogao, self.rectFogao)
 
+        if self.abriuBau:
+            superficie.blit(self.imagemBauAberto, self.rectBauAberto)
+            if not self.pegouChave:
+                superficie.blit(self.imagemChave, self.rectChave)
+
+        if self.mostrarFrascoAmarelo:
+            superficie.blit(self.imagemFrascoAmarelo, self.rectFrascoAmarelo)
+
         if self.mostrarMapa:
             superficie.blit(self.imagemOpaca, self.rectOpaca)
             superficie.blit(self.imagemMapa, self.rectMapa)
@@ -351,17 +368,37 @@ class Fase3:
         if self.mostrarCifra:
             superficie.blit(self.imagemOpaca, self.rectOpaca)
             superficie.blit(self.imagemCifra, self.rectCifra)
+        
+
 
     def checaColisoes(self, player):
+        pygame.mixer.music.load('./sons/success.wav')
         if self.rectFogao.collidelist([player.rect]) >= 0:
+            if not self.encontrouFogao:
+                pygame.mixer.music.play(0)
             self.encontrouFogao = True
             self.mostrarCifra = not self.mostrarCifra
             self.apagarFogao()
         if self.rectDishes1.collidelist([player.rect]) >= 0 and self.encontrouFogao:
+            if not self.encontrouLouca:
+                pygame.mixer.music.play(0)
             self.encontrouLouca = True
             self.empurrarDishes()
         if self.rectMapaEnrolado.collidelist([player.rect]) >=0 and self.encontrouLouca:
             self.mostrarMapa = not self.mostrarMapa
+        if self.rectFrascoAmarelo.collidelist([player.rect]) >=0 and self.encontrouLouca:
+            if self.mostrarFrascoAmarelo:
+                pygame.mixer.music.play(0)
+            self.mostrarFrascoAmarelo = False
+        if self.rectBauFechado.collidelist([player.rect]) >=0 and not self.mostrarFrascoAmarelo:
+            self.mostrarChave = True
+            self.abriuBau = True
+        if self.rectChave.collidelist([player.rect]) >=0 and self.abriuBau:
+            if not self.pegouChave:
+                pygame.mixer.music.play(0)
+            self.pegouChave = True
+        if self.rectCadeado.collidelist([player.rect]) >=0 and self.pegouChave:
+            self.proximaFase = True
 
     def apagarFogao(self):
         self.superficie.blit(self.imagemFogaoApagado, self.rectFogao)
@@ -372,3 +409,7 @@ class Fase3:
         sleep(0.2)
         for i in range(675, 750):
             self.rectDishes1.right = i
+
+    
+    def __del__(self):
+        print("Fase 3 destruida")

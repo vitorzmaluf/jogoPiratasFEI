@@ -10,6 +10,8 @@ class Fase2:
         fontesys=pygame.font.SysFont(fonte, 40)
         self.txttela = fontesys.render(txt, 1, (255,255,255)) 
 
+        self.mostrarCodigo = False
+
 
         self.encontrouCofre = False #Fica atras do quadro da direita
         self.encontrouCodigo = False #codigo para abrir o cofre - fica em baixo da cama inferior direita
@@ -21,29 +23,33 @@ class Fase2:
 
         self.imagemPrateleira1 = pygame.image.load('./imagens/fase2/cj-prateleiras-1.png')
         self.rectPrateleira1 = pygame.Rect(20, 210, 20, 60)
-        # self.rectPrateleira1.centerx=400
-        # self.rectPrateleira1.centery=200
+        self.rectPrateleira1.centerx=538
+        self.rectPrateleira1.centery=260
 
         self.imagemBeliches = pygame.image.load('./imagens/fase2/beliches.png')
         self.rectBeliches = self.imagemBeliches.get_rect()
-        self.rectBeliches.centerx=400
-        self.rectBeliches.centery=200
+        self.rectBeliches.centerx=130
+        self.rectBeliches.centery=210
         
+        self.imagemSacosTesouro = pygame.image.load('./imagens/fase2/sacosDeTesouro.png')
+        self.rectSacosTesouro = self.imagemSacosTesouro.get_rect()
+        self.rectSacosTesouro.centerx=770
+        self.rectSacosTesouro.centery=370
 
         self.imagemTesouros = pygame.image.load('./imagens/fase2/tesouros.png')
         self.rectTesouros = self.imagemTesouros.get_rect()
-        self.rectTesouros.centerx=400
-        self.rectTesouros.centery=200
+        self.rectTesouros.centerx=280
+        self.rectTesouros.centery=110
 
         self.imagemPrateleira2 = pygame.image.load('./imagens/fase2/cjPrateleiras2.png')
         self.rectPrateleira2 = self.imagemPrateleira2.get_rect()
-        self.rectPrateleira2.centerx=400
-        self.rectPrateleira2.centery=200
+        self.rectPrateleira2.centerx=620
+        self.rectPrateleira2.centery=93
 
         self.imagemsacosDeMoedas = pygame.image.load('./imagens/fase2/sacosDeMoedas.png')
         self.rectsacosDeMoedas = self.imagemsacosDeMoedas.get_rect()
-        self.rectsacosDeMoedas.centerx=400
-        self.rectsacosDeMoedas.centery=200
+        self.rectsacosDeMoedas.centerx=520
+        self.rectsacosDeMoedas.centery=130
 
         self.imagemQuadroEsquerda = pygame.image.load('./imagens/fase2/quadro-esquerda.png')
         self.rectQuadroEsquerda = self.imagemQuadroEsquerda.get_rect()
@@ -90,10 +96,15 @@ class Fase2:
         self.rectChave.centerx=325
         self.rectChave.centery=55
 
-        self.imagemOpaca = pygame.image.load('./imagens/fase1/imagemOpaca.png')
+        self.imagemOpaca = pygame.image.load('./imagens/fase2/imagemOpaca.png')
         self.rectOpaca = self.imagemOpaca.get_rect()
         self.rectOpaca.centerx=400
         self.rectOpaca.centery=200
+
+        self.imagemCod = pygame.image.load('./imagens/fase2/livro-codigo.png')
+        self.rectCod = self.imagemCod.get_rect()
+        self.rectCod.centerx=400
+        self.rectCod.centery=200
 
         self.objetos = [self.rectPrateleira1, self.rectPrateleira2, self.rectBeliches, self.rectTesouros, self.rectsacosDeMoedas]
 
@@ -107,6 +118,7 @@ class Fase2:
         superficie.blit(self.imagemPrateleira2, self.rectPrateleira2)
         superficie.blit(self.imagemBeliches, self.rectBeliches)
         superficie.blit(self.imagemTesouros, self.rectTesouros)
+        superficie.blit(self.imagemSacosTesouro, self.rectSacosTesouro)
         superficie.blit(self.imagemsacosDeMoedas, self.rectsacosDeMoedas)
         if self.encontrouChave == False:
             superficie.blit(self.imagemChave, self.rectChave)
@@ -116,6 +128,9 @@ class Fase2:
         superficie.blit(self.imagemBeliche, self.rectBeliche)
         superficie.blit(self.imagemPrateleiraEspecial, self.rectPrateleiraEspecial)
 
+        if self.mostrarCodigo:
+            superficie.blit(self.imagemOpaca, self.rectOpaca)
+            superficie.blit(self.imagemCod, self.rectCod)
         
         if self.proximaFase:
             self.imagemOpaca.set_alpha(180)
@@ -124,34 +139,42 @@ class Fase2:
         
 
     def checaColisoes(self, player):
+        pygame.mixer.music.load('./sons/success.wav')
         #Verifica se encontrou o cofre (Fica atras do quadro da direita)
         if self.rectQuadroDireita.collidelist([player.rect]) >= 0:
+            if not self.encontrouCofre:
+                pygame.mixer.music.play(0)
             self.encontrouCofre = True
             self.moverQuadroDireita()
-            print("encontrou cofre")
         #Verifica se encontrou o codigo (Fica em baixo da cama inferior direita)
         if self.rectBeliche.collidelist([player.rect]) >= 0 and self.encontrouCofre:
+            if not self.encontrouCodigo:
+                pygame.mixer.music.play(0)
             self.encontrouCodigo = True
-            print("encontrou codigo")
+            self.mostrarCodigo = not self.mostrarCodigo
         
         #Verifica se encontrou a chave de fenda (Fica dentro do cofre)
         if self.rectCofre.collidelist([player.rect]) >= 0 and self.encontrouCodigo:
+            if not self.encontrouFenda:
+                pygame.mixer.music.play(0)
             self.encontrouFenda = True
-            print("encontrou fenda")
         
         #Verifica se encontrou a chave da porta (Fica tras do quadro da esquerda)
         if self.rectQuadroEsquerda.collidelist([player.rect]) >= 0 and self.encontrouFenda:
+            if not self.encontrouChave:
+                pygame.mixer.music.play(0)
             self.encontrouChave = True
             self.moverQuadroEsquerda()
-            print("encontrou chave")
         #Abre a porta se encontrou chave
         if self.rectPorta.collidelist([player.rect]) >= 0 and self.encontrouChave:
+            if not self.abriuCadeado:
+                pygame.mixer.music.play(0)
             self.abriuCadeado = True
             self.moverCadeado()
-            print("abriu cadeado")
         if self.rectPorta.collidelist([player.rect]) >= 0 and self.abriuCadeado:
+            if not self.proximaFase:
+                pygame.mixer.music.play(0)
             self.proximaFase = True
-            print("proxima fase")
 
     def moverQuadroEsquerda(self):
         for i in range(50, 180):
@@ -164,4 +187,7 @@ class Fase2:
     def moverCadeado(self):
         for i in range(55, 100):
             self.rectCadeado.bottom = i
+
+    def __del__(self):
+        print("Fase 2 destruida")
         

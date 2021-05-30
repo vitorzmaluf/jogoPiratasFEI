@@ -30,7 +30,7 @@ def pirata():
     # Run until the user asks to quit
     running = True
 
-    fases = [fase3, fase1, fase2]
+    fases = [fase1, fase2]
     faseAtual = fases[0]
     while running:
         i = 0
@@ -42,18 +42,33 @@ def pirata():
         player.movimento(faseAtual.objetos)#TODO nao deixar jogador atravessar objetos
 
         # Did the user click the window close button?
+        keys = pygame.key.get_pressed()
+
+        # keys[0] = keys[K_LEFT]
+        # keys[1] = keys[K_RIGHT]
+        # keys[2] = keys[K_UP]
+        # keys[3] = keys[K_DOWN]
+        if(player.livre):
+            if keys[K_LEFT]:
+                player.rect.left -= player.velocidade
+            elif keys[K_RIGHT]:
+                player.rect.right += player.velocidade
+            if keys[K_UP]:
+                player.rect.top -= player.velocidade
+            elif keys[K_DOWN]:
+                player.rect.bottom += player.velocidade
 
         for event in pygame.event.get():
             print(event)
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT:
-                    player.rect.left -= player.velocidade
-                if event.key == pygame.K_RIGHT:
-                    player.rect.right += player.velocidade
-                if event.key == pygame.K_UP:
-                    player.rect.top -= player.velocidade
-                if event.key == pygame.K_DOWN:
-                    player.rect.bottom += player.velocidade
+                # if event.key == pygame.K_LEFT:
+                #     player.rect.left -= player.velocidade
+                # if event.key == pygame.K_RIGHT:
+                #     player.rect.right += player.velocidade
+                # if event.key == pygame.K_UP:
+                #     player.rect.top -= player.velocidade
+                # if event.key == pygame.K_DOWN:
+                #     player.rect.bottom += player.velocidade
                 
                 #Evento de ação: checa colisões com os objetos chave
                 if event.key == pygame.K_SPACE:

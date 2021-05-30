@@ -12,7 +12,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.centery=300
 
         self.vida = True
-        self.velocidade = 15
+        self.velocidade = 3
         # self.surf = pygame.Surface((75, 25))
         # self.surf.fill((255, 255, 255))
     

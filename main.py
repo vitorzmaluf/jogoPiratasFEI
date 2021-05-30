@@ -77,7 +77,7 @@ def pirata():
                 
                 #Evento de ação: checa colisões com os objetos chave
                 if event.key == pygame.K_SPACE:
-                    if(faseAtual != fases[3]):
+                    if(faseAtual != fasefinal):
                         faseAtual.checaColisoes(player)
                         print('test')
                     else:
@@ -95,7 +95,7 @@ def pirata():
         faseAtual.colocar(screen)
         player.colocar(screen)
 
-        if(faseAtual == fases[3]):
+        if(faseAtual == fasefinal):
             if(boss.life > 0):
                 boss.colocar(screen, bossCount//24)
                 boss.movimento()

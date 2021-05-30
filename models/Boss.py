@@ -37,8 +37,8 @@ class Boss(pygame.sprite.Sprite):
         self.bossState = 0
 
 
-    def colocar(self, superficie):
-        superficie.blit(self.ImagemBossFlipArr[0], self.rect)
+    def colocar(self, superficie, n):
+        superficie.blit(self.ImagemBossFlipArr[n], self.rect)
 
     def movimento(self):
         if self.rect.left <= 0:

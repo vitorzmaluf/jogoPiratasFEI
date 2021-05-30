@@ -31,7 +31,7 @@ def pirata():
     fase3 = Fase3()
     fasefinal = FaseFinal()
 
-    attackCount = 0
+    bossCount = 0
 
     imagemFundo = pygame.image.load('./imagens/cenario/bkgrnd.png')
     # Run until the user asks to quit
@@ -96,8 +96,8 @@ def pirata():
         player.colocar(screen)
 
         if(faseAtual == fases[3]):
-            boss.colocar(screen)
             if(boss.life > 0):
+                boss.colocar(screen, bossCount//12)
                 boss.movimento()
                 if(boss.bossState == 0):
                     #retornar para posicao original
@@ -118,6 +118,10 @@ def pirata():
 
                     if(boss.rect.left < 40):
                         boss.bossState = 0
+                bossCount += 1
+                if(bossCount > 72):
+                    bossCount = 0
+            
             #Morreu
             else:
                 boss.bossState = 2

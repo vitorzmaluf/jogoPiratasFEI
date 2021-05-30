@@ -102,13 +102,13 @@ def pirata():
                 boss.movimento()
                 if(boss.bossState == 0):
                     #retornar para posicao original
-                    if(boss.rect.left < 600):
+                    if(boss.rect.left < 650):
                         boss.rect.right += 2
                     else:
                         ran = random.randint( 0, 4000 )
                         if(ran < 100):
                             boss.velocidade = -boss.velocidade
-                            ran_atk = random.randint( 0, 2000 )
+                            ran_atk = random.randint( 0, 200 )
                             if(ran_atk < 30):
                                 boss.bossState = 1
 
@@ -116,8 +116,10 @@ def pirata():
 
                 if(boss.bossState == 1):
                     boss.rect.left -= 2
+
                     if(boss.rect.left < 40):
                         boss.bossState = 0
+            #Morreu
             else:
                 boss.bossState = 2
 

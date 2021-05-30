@@ -1,4 +1,5 @@
 from models.Player import Player
+from models.Boss import Boss
 import pygame
 
 class FaseFinal:

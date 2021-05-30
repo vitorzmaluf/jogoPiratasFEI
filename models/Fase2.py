@@ -20,9 +20,9 @@ class Fase2:
 
 
         self.imagemPrateleira1 = pygame.image.load('./imagens/fase2/cj-prateleiras-1.png')
-        self.rectPrateleira1 = self.imagemPrateleira1.get_rect()
-        self.rectPrateleira1.centerx=400
-        self.rectPrateleira1.centery=200
+        self.rectPrateleira1 = pygame.Rect(20, 210, 20, 60)
+        # self.rectPrateleira1.centerx=400
+        # self.rectPrateleira1.centery=200
 
         self.imagemBeliches = pygame.image.load('./imagens/fase2/beliches.png')
         self.rectBeliches = self.imagemBeliches.get_rect()

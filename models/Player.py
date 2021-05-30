@@ -1,4 +1,5 @@
 import pygame
+from pygame.locals import *
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
@@ -19,13 +20,19 @@ class Player(pygame.sprite.Sprite):
     def movimento(self, objetosFase):
         xAnt = self.rect.x - self.velocidade
         yAnt = self.rect.y - self.velocidade
-        self.livre = True
+ 
 
-        if self.rect.collidelist(objetosFase) >= 0:
-            print("Colidiu")
-            self.livre = False
-            # self.rect.x = yAnt
-            # self.rect.y = xAnt
+        # if self.rect.collidelist(objetosFase) >= 0:
+        #     print("Colidiu")
+        #     self.livre = False
+        # else:
+        #     self.livre = True
+        
+        # keys = pygame.key.get_pressed()
+        # if(self.livre):
+        #     if not keys[K_LEFT] and not keys[K_RIGHT] and not keys[K_UP] and not keys[K_DOWN]:
+        #         self.livre = True
+
 
         if self.vida:
             if self.rect.left <= 0:

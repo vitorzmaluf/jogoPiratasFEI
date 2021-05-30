@@ -121,17 +121,23 @@ class Fase1:
 
 
     def checaColisoes(self, player):
+        pygame.mixer.music.load('./sons/success.wav')
         # if self.rectBarra1.collidelist([player.rect]) >= 0:
 
         if self.rectPortao.collidelist([player.rect]) >= 0:
+            if not self.encontrouPortao:
+                pygame.mixer.music.play(0)
             self.encontrouPortao = True
             self.moverPortao()
             print("encontrou portao")
         if self.rectVaso.collidelist([player.rect]) >= 0 and self.encontrouPortao:
+            if not self.encontrouChave:
+                pygame.mixer.music.play(0)
             self.encontrouChave = True
             self.moverVaso()
             print("encontrou chave")
         if self.rectPorta.collidelist([player.rect]) >= 0 and self.encontrouChave:
+            pygame.mixer.music.play(0)
             self.proximaFase = True
             self.moverCadeado()
             print("proxima fase")
@@ -149,3 +155,6 @@ class Fase1:
     def moverVaso(self):
         for i in range(200, 100, -1):
             self.rectVaso.left = i
+
+    def __del__(self):
+        print("Fase 1 destruida")

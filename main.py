@@ -33,12 +33,11 @@ def pirata():
     fases = [fase1, fase2, fase3]
     faseAtual = fases[0]
     while running:
-        i = 0
         if faseAtual.proximaFase:
             sleep(2);##TODO verificar se é a ultima fase
-            i += 1
-            faseAtual.__del__()
-            faseAtual = fases[i]
+            faseAtual = None
+            fases.pop(0)
+            faseAtual = fases[0]
         
         player.movimento(faseAtual.objetos)#TODO nao deixar jogador atravessar objetos
 

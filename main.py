@@ -6,6 +6,7 @@ from pygame.locals import *
 
 from models.Player import Player
 from models.FaseFinal import FaseFinal
+from models.Boss import Boss
 #from models.Fase1 import Fase1
 
 SCREEN_WIDTH = 800
@@ -22,6 +23,7 @@ def pirata():
     pygame.display.set_caption("Pirata")
 
     player = Player()
+    boss = Boss()
     fase1 = Fase1()
     fase2= Fase2()
     fasefinal = FaseFinal()
@@ -31,6 +33,7 @@ def pirata():
     running = True
 
     while running:
+        pygame.time.delay(27)
         player.movimento()
         # Did the user click the window close button?
 
@@ -55,6 +58,7 @@ def pirata():
         #fase2.colocar(screen)
         fasefinal.colocar(screen)
         player.colocar(screen)
+        boss.colocar(screen)
 
         pygame.display.update()
 

@@ -6,7 +6,7 @@ class Player(pygame.sprite.Sprite):
 
         self.ImagemPlayer = pygame.image.load('./imagens/player.png')
         self.rect = self.ImagemPlayer.get_rect()
-        self.rect.centerx=600
+        self.rect.centerx=150
         self.rect.centery=300
 
         self.vida = True

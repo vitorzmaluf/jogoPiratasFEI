@@ -14,13 +14,14 @@ class Boss(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.ImagemBossArr = [
-          pygame.image.load('./imagens/barba_ruiva_new/idle_0.png')
-        , pygame.image.load('./imagens/barba_ruiva_new/idle_1.png')
-        , pygame.image.load('./imagens/barba_ruiva_new/idle_2.png')
-        , pygame.image.load('./imagens/barba_ruiva_new/idle_3.png')
-        , pygame.image.load('./imagens/barba_ruiva_new/idle_4.png')
-        , pygame.image.load('./imagens/barba_ruiva_new/idle_5.png')
-        , pygame.image.load('./imagens/barba_ruiva_new/idle_6.png')]
+          pygame.image.load('./imagens/barba_ruiva_new/WALK_000.png')
+        , pygame.image.load('./imagens/barba_ruiva_new/WALK_001.png')
+        , pygame.image.load('./imagens/barba_ruiva_new/WALK_002.png')
+        , pygame.image.load('./imagens/barba_ruiva_new/WALK_003.png')
+        , pygame.image.load('./imagens/barba_ruiva_new/WALK_004.png')
+        , pygame.image.load('./imagens/barba_ruiva_new/WALK_005.png')
+        , pygame.image.load('./imagens/barba_ruiva_new/WALK_006.png')]
+
 
         self.ImagemBossFlipArr = [pygame.transform.flip(self.ImagemBossArr[0], True, False) , pygame.transform.flip(self.ImagemBossArr[1], True, False), pygame.transform.flip(self.ImagemBossArr[2], True, False), pygame.transform.flip(self.ImagemBossArr[3], True, False), pygame.transform.flip(self.ImagemBossArr[4], True, False), pygame.transform.flip(self.ImagemBossArr[5], True, False), pygame.transform.flip(self.ImagemBossArr[6], True, False)]
 

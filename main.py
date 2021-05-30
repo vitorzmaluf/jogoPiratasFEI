@@ -38,7 +38,7 @@ def pirata():
     running = True
 
     fases = [fase1, fase2, fase3, fasefinal]
-    faseAtual = fases[3]
+    faseAtual = fases[0]
     while running:
         if faseAtual.proximaFase:
             sleep(2);##TODO verificar se é a ultima fase
@@ -96,7 +96,7 @@ def pirata():
 
         if(faseAtual == fases[3]):
             if(boss.life > 0):
-                boss.colocar(screen, bossCount//12)
+                boss.colocar(screen, bossCount//24)
                 boss.movimento()
                 if(boss.bossState == 0):
                     #retornar para posicao original
@@ -118,7 +118,7 @@ def pirata():
                     if(boss.rect.left < 40):
                         boss.bossState = 0
                 bossCount += 1
-                if(bossCount > 72):
+                if(bossCount > 144):
                     bossCount = 0
             
             #Morreu

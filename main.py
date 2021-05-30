@@ -1,13 +1,14 @@
-from models.Fase1 import Fase1
-from models.Fase2 import Fase2
 import pygame, sys
 from pygame.locals import *
+from time import sleep
 
 
 from models.Player import Player
 from models.FaseFinal import FaseFinal
 from models.Boss import Boss
-#from models.Fase1 import Fase1
+from models.Fase1 import Fase1
+from models.Fase2 import Fase2
+from models.Fase3 import Fase3
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 400
@@ -26,28 +27,58 @@ def pirata():
     boss = Boss()
     fase1 = Fase1()
     fase2= Fase2()
+    fase3 = Fase3()
     fasefinal = FaseFinal()
 
     imagemFundo = pygame.image.load('./imagens/cenario/bkgrnd.png')
     # Run until the user asks to quit
     running = True
 
+    fases = [fase1, fase2]
+    faseAtual = fases[0]
     while running:
-        pygame.time.delay(27)
-        player.movimento()
+        i = 0
+        if faseAtual.proximaFase:
+            sleep(2);##TODO verificar se é a ultima fase
+            i += 1
+            faseAtual = fases[i]
+        
+        player.movimento(faseAtual.objetos)#TODO nao deixar jogador atravessar objetos
+
         # Did the user click the window close button?
+        keys = pygame.key.get_pressed()
+
+        # keys[0] = keys[K_LEFT]
+        # keys[1] = keys[K_RIGHT]
+        # keys[2] = keys[K_UP]
+        # keys[3] = keys[K_DOWN]
+        if(player.livre):
+            if keys[K_LEFT]:
+                player.rect.left -= player.velocidade
+            elif keys[K_RIGHT]:
+                player.rect.right += player.velocidade
+            if keys[K_UP]:
+                player.rect.top -= player.velocidade
+            elif keys[K_DOWN]:
+                player.rect.bottom += player.velocidade
 
         for event in pygame.event.get():
             print(event)
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT:
-                    player.rect.left -= player.velocidade
-                if event.key == pygame.K_RIGHT:
-                    player.rect.right += player.velocidade
-                if event.key == pygame.K_UP:
-                    player.rect.top -= player.velocidade
-                if event.key == pygame.K_DOWN:
-                    player.rect.bottom += player.velocidade
+                # if event.key == pygame.K_LEFT:
+                #     player.rect.left -= player.velocidade
+                # if event.key == pygame.K_RIGHT:
+                #     player.rect.right += player.velocidade
+                # if event.key == pygame.K_UP:
+                #     player.rect.top -= player.velocidade
+                # if event.key == pygame.K_DOWN:
+                #     player.rect.bottom += player.velocidade
+                
+                #Evento de ação: checa colisões com os objetos chave
+                if event.key == pygame.K_SPACE:
+                    faseAtual.checaColisoes(player)
+                    # while pygame.key.get_pressed()[pygame.K_SPACE]:
+                    #     print("espaco apertado")
 
                 screen.fill((0,0,0))
                     
@@ -55,8 +86,7 @@ def pirata():
                 running = False
         
         screen.blit(imagemFundo, [0, 0])
-        #fase2.colocar(screen)
-        fasefinal.colocar(screen)
+        faseAtual.colocar(screen)
         player.colocar(screen)
         boss.colocar(screen)
 

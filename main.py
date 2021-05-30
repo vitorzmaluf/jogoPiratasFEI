@@ -79,6 +79,7 @@ def pirata():
                 if event.key == pygame.K_SPACE:
                     if(faseAtual != fases[3]):
                         faseAtual.checaColisoes(player)
+                        print('test')
                     else:
                         print('atirou')
 

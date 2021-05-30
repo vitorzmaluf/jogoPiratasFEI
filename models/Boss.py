@@ -10,7 +10,6 @@ class Boss(pygame.sprite.Sprite):
     ''' State = 0 -> Await, 
         State = 1 -> Attack,
         State = 2 -> Dead '''
-    BossState = 0
 
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
@@ -33,16 +32,20 @@ class Boss(pygame.sprite.Sprite):
         self.rect.centery=250
 
         self.life = 100
-
-
-    def bossAcao(self):
-        if(self.BossState == 0):
-            print('Espera')
-        elif(self.BossState == 1):
-            print('Ataca')
-        else:
-            print('Morreu')
+        
+        self.velocidade = 1
+        self.bossState = 0
 
 
     def colocar(self, superficie):
         superficie.blit(self.ImagemBossFlipArr[0], self.rect)
+
+    def movimento(self):
+        if self.rect.left <= 0:
+            self.rect.left = 0
+        if self.rect.right > 800:
+            self.rect.right = 800
+        if self.rect.bottom > 400:
+            self.rect.bottom = 400
+        if self.rect.top < 60:
+            self.rect.top = 60

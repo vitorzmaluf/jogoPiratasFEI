@@ -1,6 +1,7 @@
 import pygame, sys
 from pygame.locals import *
 from time import sleep
+import random
 
 
 from models.Player import Player
@@ -30,12 +31,14 @@ def pirata():
     fase3 = Fase3()
     fasefinal = FaseFinal()
 
+    attackCount = 0
+
     imagemFundo = pygame.image.load('./imagens/cenario/bkgrnd.png')
     # Run until the user asks to quit
     running = True
 
-    fases = [fase1, fase2]
-    faseAtual = fases[0]
+    fases = [fase1, fase2, fase3, fasefinal]
+    faseAtual = fases[3]
     while running:
         i = 0
         if faseAtual.proximaFase:
@@ -76,7 +79,11 @@ def pirata():
                 
                 #Evento de ação: checa colisões com os objetos chave
                 if event.key == pygame.K_SPACE:
-                    faseAtual.checaColisoes(player)
+                    if(faseAtual != fases[3]):
+                        faseAtual.checaColisoes(player)
+                    else:
+                        print('atirou')
+
                     # while pygame.key.get_pressed()[pygame.K_SPACE]:
                     #     print("espaco apertado")
 
@@ -88,7 +95,36 @@ def pirata():
         screen.blit(imagemFundo, [0, 0])
         faseAtual.colocar(screen)
         player.colocar(screen)
-        boss.colocar(screen)
+
+        if(faseAtual == fases[3]):
+            boss.colocar(screen)
+            if(boss.life > 0):
+                boss.movimento()
+                if(boss.bossState == 0):
+                    #retornar para posicao original
+                    if(boss.rect.left < 600):
+                        boss.rect.right += 2
+                    else:
+                        ran = random.randint( 0, 4000 )
+                        if(ran < 100):
+                            boss.velocidade = -boss.velocidade
+                            ran_atk = random.randint( 0, 2000 )
+                            if(ran_atk < 30):
+                                boss.bossState = 1
+
+                boss.rect.top += boss.velocidade
+
+                if(boss.bossState == 1):
+                    boss.rect.left -= 2
+                    if(boss.rect.left < 40):
+                        boss.bossState = 0
+            else:
+                boss.bossState = 2
+
+
+
+
+            
 
         pygame.display.update()
 

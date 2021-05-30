@@ -20,9 +20,9 @@ class Player(pygame.sprite.Sprite):
         yAnt = self.rect.y - self.velocidade
         self.livre = True
 
-        if self.rect.collidelist(objetosFase) >= 0:
-            print("Colidiu")
-            self.livre = False
+        #if self.rect.collidelist(objetosFase) >= 0:
+            #print("Colidiu")
+            #self.livre = False
             # self.rect.x = yAnt
             # self.rect.y = xAnt
 

@@ -14,8 +14,14 @@ class FaseFinal:
         self.rectBorda.centerx=400
         self.rectBorda.centery=50
 
+        self.objetos = [self.rectBorda, self.rectCeu]
+
+        self.proximaFase = False
+        self.disparos = []
 
     def colocar(self, superficie):
         superficie.blit(self.imagemCeu, self.rectCeu)
         superficie.blit(self.imagemBorda, self.rectBorda)
+    
+    #def disparar(self, superficie, )
 

@@ -106,9 +106,9 @@ class Fase2:
         self.rectCod.centerx=400
         self.rectCod.centery=200
 
-        self.objetos = [self.rectPrateleira1, self.rectPrateleira2, self.rectBeliches, self.rectTesouros, self.rectsacosDeMoedas]
-
-    
+        #self.objetos = [self.rectPrateleira1, self.rectPrateleira2, self.rectBeliches, self.rectTesouros, self.rectsacosDeMoedas]
+        self.objetos = dict(
+            [('FASE', 2), ('Camas', self.rectBeliches), ('Prateleira2', self.rectPrateleira2), ('Prateleira1', self.rectPrateleira1)])
 
     def colocar(self, superficie):
         superficie.blit(self.imagemParede, self.rectParede)

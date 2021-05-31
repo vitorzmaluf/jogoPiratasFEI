@@ -30,7 +30,7 @@ class Fase1:
 
         self.imagemBarra2 = pygame.image.load('./imagens/fase1/barra2.png')
         self.rectBarra2 = self.imagemBarra2.get_rect()
-        self.rectBarra2.centerx=710
+        self.rectBarra2.centerx=750
         self.rectBarra2.centery=204
 
         self.imagemCama1 = pygame.image.load('./imagens/fase1/cama1.png')
@@ -93,7 +93,8 @@ class Fase1:
         self.rectChave.centerx=200
         self.rectChave.centery=80
 
-        self.objetos = [self.rectBarra1, self.rectBarra2, self.rectBarra3, self.rectCama1, self.rectToilet1]
+        self.objetos = dict([ ('FASE', 1), ('Barra1', self.rectBarra1), ('Barra2', self.rectBarra2), ('Barra3', self.rectBarra3),
+                              ('Cama1', self.rectCama1), ('Toilet1', self.rectToilet1), ('Portao', self.rectPortao) ])
 
 
 
@@ -124,6 +125,9 @@ class Fase1:
         pygame.mixer.music.load('./sons/success.wav')
         # if self.rectBarra1.collidelist([player.rect]) >= 0:
 
+
+
+        # --------------- Puzzles
         if self.rectPortao.collidelist([player.rect]) >= 0:
             if not self.encontrouPortao:
                 pygame.mixer.music.play(0)
@@ -141,11 +145,10 @@ class Fase1:
             self.proximaFase = True
             self.moverCadeado()
             print("proxima fase")
-        
-        # if self.proximaFase:
+
 
     def moverPortao(self):
-        for i in range(440, 570):
+        for i in range(440, 610):
             self.rectPortao.right = i
 
     def moverCadeado(self):

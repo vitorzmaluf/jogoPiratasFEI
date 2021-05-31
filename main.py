@@ -4,8 +4,8 @@ from time import sleep
 import random
 
 
-from models.Player import Player
-from models.Player import Shoot
+from models.Player import *
+#from models.Player import Shoot
 from models.FaseFinal import FaseFinal
 from models.Boss import Boss
 from models.Fase1 import Fase1
@@ -46,7 +46,7 @@ def pirata():
 
     #fases[0]
     faseAtual = fases[0]
-    #faseAtual = fasefinal
+    #faseAtual = fase3
     while running:
         if faseAtual.proximaFase:
             sleep(2)
@@ -54,7 +54,8 @@ def pirata():
             faseAtual = None
             fases.pop(0)
             faseAtual = fases[0]
-        
+
+
         player.movimento(faseAtual.objetos)#TODO nao deixar jogador atravessar objetos
 
         # Did the user click the window close button?
@@ -106,13 +107,13 @@ def pirata():
                 
                 #Evento de ação: checa colisões com os objetos chave
                 if event.key == pygame.K_SPACE:
-                    if(faseAtual != fases[3]):
-                        faseAtual.checaColisoes(player)
+                        if(faseAtual != fasefinal):
+                            faseAtual.checaColisoes(player)
                         #print('test')
-                    else:
-                        shoots.append(Shoot(player.rect.left+50, player.rect.top+40))
-                        #print('atirou')
-                        player.set_attack_flag(True)
+                        else:
+                            shoots.append(Shoot(player.rect.left+50, player.rect.top+40))
+                            #print('atirou')
+                            player.set_attack_flag(True)
 
                     # while pygame.key.get_pressed()[pygame.K_SPACE]:
                     #     print("espaco apertado")

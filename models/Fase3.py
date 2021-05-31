@@ -3,7 +3,6 @@ import pygame
 
 class Fase3:
     def __init__(self):
-        self.objetos = []
 
         self.proximaFase = False
         self.encontrouFogao = False
@@ -200,7 +199,7 @@ class Fase3:
 
         self.rectFrascoAmarelo = self.imagemFrascoAmarelo.get_rect()
         self.rectFrascoAmarelo.centerx=718
-        self.rectFrascoAmarelo.centery=214
+        self.rectFrascoAmarelo.centery=200
 
         self.rectFrascoAzul = self.imagemFrascoAzul.get_rect()
         self.rectFrascoAzul.centerx=532
@@ -342,6 +341,12 @@ class Fase3:
             self.imagemFrascoVermelho2,
             
             ]
+
+        self.objetos = dict(
+            [('FASE', 3), ('Fogao', self.rectFogao), ('Mesinha1', self.rectMesinha1),
+             ('Mesinha2', self.rectMesinha2), ('Mesinha3', self.rectMesinha3), ('Mesinha4', self.rectMesinha4),
+             ('Armario2', self.rectArmario2), ('Mesa1', self.rectMesa1), ('Mesa2', self.rectMesa2), ('Mesa3', self.rectMesa3),
+             ('Mesa4', self.rectMesa4)])
 
     def colocar(self, superficie):
         self.superficie = superficie

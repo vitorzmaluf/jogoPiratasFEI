@@ -14,8 +14,7 @@ class FaseFinal:
         self.rectBorda.centerx=400
         self.rectBorda.centery=50
 
-        self.objetos = [self.rectBorda, self.rectCeu]
-
+        self.objetos = dict([('FASE', 4)])
         self.proximaFase = False
         self.disparos = []
 

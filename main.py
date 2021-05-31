@@ -44,11 +44,13 @@ def pirata():
     fases = [fase1, fase2, fase3, fasefinal]
     shoots = []
 
-    faseAtual = fasefinal
     #fases[0]
+    faseAtual = fases[0]
+    #faseAtual = fasefinal
     while running:
         if faseAtual.proximaFase:
-            sleep(2);##TODO verificar se é a ultima fase
+            sleep(2)
+            ##TODO verificar se é a ultima fase
             faseAtual = None
             fases.pop(0)
             faseAtual = fases[0]
@@ -60,12 +62,31 @@ def pirata():
         if(player.livre):
             if keys[K_LEFT]:
                 player.rect.left -= player.velocidade
+                player.set_turn_left(True)
+                player.set_turn_right(False)
+
             elif keys[K_RIGHT]:
                 player.rect.right += player.velocidade
+                player.set_turn_left(False)
+                player.set_turn_right(True)
+
             elif keys[K_UP]:
                 player.rect.top -= player.velocidade
+                player.set_turn_left(False)
+                player.set_turn_right(False)
+
             elif keys[K_DOWN]:
                 player.rect.bottom += player.velocidade
+                player.set_turn_left(False)
+
+            elif keys[K_SPACE]:
+                player.set_attack_flag(True)
+            else:
+                player.set_attack_flag(False)
+                player.set_turn_left(False)
+                player.set_turn_right(False)
+                player.step_index = 0
+
             # if keys[K_SPACE]:
             #     # sleep(1)
             #     # faseAtual.checaColisoes(player) 
@@ -91,6 +112,7 @@ def pirata():
                     else:
                         shoots.append(Shoot(player.rect.left+50, player.rect.top+40))
                         #print('atirou')
+                        player.set_attack_flag(True)
 
                     # while pygame.key.get_pressed()[pygame.K_SPACE]:
                     #     print("espaco apertado")

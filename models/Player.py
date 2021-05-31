@@ -37,14 +37,12 @@ class Player(pygame.sprite.Sprite):
         self.vida = True
         self.velocidade = 3
 
-<<<<<<< HEAD
         self.x = self.rect.centerx
         self.y = self.rect.centery
     
     def movimento(self, objetosFase):
         xAnt = self.rect.x - self.velocidade
         yAnt = self.rect.y - self.velocidade
-=======
         self._turn_right = False
         self._turn_left = False
         self._attack_flag = False
@@ -107,7 +105,6 @@ class Player(pygame.sprite.Sprite):
             if not keys[K_LEFT] and not keys[K_RIGHT] and not keys[K_UP] and not keys[K_DOWN]:
                 self.livre = True'''
 
->>>>>>> cb1efa19cae74bf3998da580cc6cf082be08fcd6
 
         if self.vida:
             if self.rect.left <= 0:
@@ -121,13 +118,11 @@ class Player(pygame.sprite.Sprite):
 
 
     def colocar(self, superficie):
-<<<<<<< HEAD
         superficie.blit(self.ImagemPlayer, self.rect)
 
     def setPos(self, pos_x, pos_y):
         self.x = pos_x
         self.y = pos_y
-=======
         if self.step_index > 18:
             self.step_index = 0
 
@@ -148,4 +143,3 @@ class Player(pygame.sprite.Sprite):
 
         else:
             superficie.blit(self.ImagemPlayer, self.rect)
->>>>>>> cb1efa19cae74bf3998da580cc6cf082be08fcd6

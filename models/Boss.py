@@ -23,7 +23,13 @@ class Boss(pygame.sprite.Sprite):
         , pygame.image.load('./imagens/barba_ruiva_new/WALK_006.png')]
 
 
-        self.ImagemBossFlipArr = [pygame.transform.flip(self.ImagemBossArr[0], True, False) , pygame.transform.flip(self.ImagemBossArr[1], True, False), pygame.transform.flip(self.ImagemBossArr[2], True, False), pygame.transform.flip(self.ImagemBossArr[3], True, False), pygame.transform.flip(self.ImagemBossArr[4], True, False), pygame.transform.flip(self.ImagemBossArr[5], True, False), pygame.transform.flip(self.ImagemBossArr[6], True, False)]
+        self.ImagemBossFlipArr = [pygame.transform.flip(self.ImagemBossArr[0], True, False) ,
+                                  pygame.transform.flip(self.ImagemBossArr[1], True, False),
+                                  pygame.transform.flip(self.ImagemBossArr[2], True, False),
+                                  pygame.transform.flip(self.ImagemBossArr[3], True, False),
+                                  pygame.transform.flip(self.ImagemBossArr[4], True, False),
+                                  pygame.transform.flip(self.ImagemBossArr[5], True, False),
+                                  pygame.transform.flip(self.ImagemBossArr[6], True, False)]
 
         self.ImagemBoss = pygame.image.load('./imagens/barba_ruiva_new/idle_0.png')
         self.ImagemBossFlip = pygame.transform.flip(self.ImagemBoss, True, False)

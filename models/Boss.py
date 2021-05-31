@@ -85,6 +85,9 @@ class Boss(pygame.sprite.Sprite):
         self.bossState = 0
         self.flip = 0
 
+        self.x = self.rect.centerx
+        self.y = self.rect.centery
+
 
     def colocar(self, superficie, n):
         if(self.bossState == 0):
@@ -107,3 +110,7 @@ class Boss(pygame.sprite.Sprite):
             self.rect.bottom = 400
         if self.rect.top < 60:
             self.rect.top = 60
+
+    def setPos(self, pos_x, pos_y):
+        self.x = pos_x
+        self.y = pos_y

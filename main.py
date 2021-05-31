@@ -68,9 +68,10 @@ def pirata():
             # if keys[K_SPACE]:
             #     # sleep(1)
             #     # faseAtual.checaColisoes(player) 
+            player.setPos(player.rect.left, player.rect.top)
 
         for event in pygame.event.get():
-            print(event)
+            #print(event)
             if event.type == pygame.KEYDOWN:
                 # if event.key == pygame.K_LEFT:
                 #     player.rect.left -= player.velocidade
@@ -85,10 +86,10 @@ def pirata():
                 if event.key == pygame.K_SPACE:
                     if(faseAtual != fases[3]):
                         faseAtual.checaColisoes(player)
-                        print('test')
+                        #print('test')
                     else:
                         shoots.append(Shoot(player.rect.left+50, player.rect.top+40))
-                        print('atirou')
+                        #print('atirou')
 
                     # while pygame.key.get_pressed()[pygame.K_SPACE]:
                     #     print("espaco apertado")
@@ -102,19 +103,13 @@ def pirata():
         faseAtual.colocar(screen)
         player.colocar(screen)
 
-        for n in shoots:
-            n.atualizar()
-            n.colocar(screen)
-            if(n.x >= 700):
-                shoots.remove(n)
-
         if(faseAtual == fasefinal):
             if(playMusic == False):
                 fasefinal.tocar()
                 playMusic = True
+            boss.colocar(screen, bossCount//24)
+            boss.movimento()
             if(boss.life > 0):
-                boss.colocar(screen, bossCount//24)
-                boss.movimento()
                 if(boss.bossState == 0):
                     #retornar para posicao original
                     if(boss.rect.left < 650):
@@ -123,14 +118,14 @@ def pirata():
                     else:
                         boss.flip = 0
                         ran = random.randint( 0, 3000 )
-                        print(ran)
                         if(ran < 100):
                             boss.velocidade = -boss.velocidade
-                            ran_atk = random.randint( 0, 200 )
-                            if(ran_atk < 30):
+                            ran_atk = random.randint( 0, 100 )
+                            if(ran_atk < 10):
                                 boss.bossState = 1
 
                 boss.rect.top += boss.velocidade
+                boss.setPos(boss.rect.left, boss.rect.top)
 
                 if(boss.bossState == 1):
                     boss.rect.left -= 2
@@ -140,30 +135,30 @@ def pirata():
                 bossCount += 1
                 if(bossCount > 144):
                     bossCount = 0
-            
+
+                for n in shoots:
+                    n.atualizar()
+                    n.colocar(screen)
+                    if(n.x >= 800):
+                        shoots.remove(n)
+                    if(n.x >= boss.x and n.x <= boss.x+80 and n.y >= boss.y and n.y <= boss.y+120):
+                        shoots.remove(n)
+                        boss.life -= 1
+
+                if(player.x >= boss.x and player.x <= boss.x+80 and player.y >= boss.y and player.y <= boss.y+120):
+                    player.vida = False
+                    fasefinal.Lose(screen)
+
             else:
                 boss.bossState = 2
-                #if(bossCount > 144):
-                #    bossCount = 144
+                bossCount += 1
+                if(bossCount > 144):
+                    bossCount = 144
+                
+                fasefinal.parar()
 
-
-
-
-            
 
         pygame.display.update()
-
-        # Fill the background with white
-        # screen.fill((255, 255, 255))
-
-        # Draw the player on the screen
-        # screen.blit(player.surf, (pos_player[0], pos_player[1]))
-
-        # Draw a solid blue circle in the center
-        # pygame.draw.circle(screen, (0, 0, 255), (250, 250), 75)
-
-        # Flip the display
-        # pygame.display.flip()
 
     # Done! Time to quit.
     pygame.quit()

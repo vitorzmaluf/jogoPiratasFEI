@@ -11,10 +11,12 @@ class Shoot(pygame.sprite.Sprite):
         self.vel = 1
 
         self.x = pos_x
+        self.y = pos_y
 
     def atualizar(self):
         self.rect.x += self.vel
         self.x = self.rect.x
+        self.y = self.rect.y
 
 
     def colocar(self, superficie):
@@ -34,6 +36,9 @@ class Player(pygame.sprite.Sprite):
 
         self.vida = True
         self.velocidade = 3
+
+        self.x = self.rect.centerx
+        self.y = self.rect.centery
     
     def movimento(self, objetosFase):
         xAnt = self.rect.x - self.velocidade
@@ -52,3 +57,7 @@ class Player(pygame.sprite.Sprite):
 
     def colocar(self, superficie):
         superficie.blit(self.ImagemPlayer, self.rect)
+
+    def setPos(self, pos_x, pos_y):
+        self.x = pos_x
+        self.y = pos_y

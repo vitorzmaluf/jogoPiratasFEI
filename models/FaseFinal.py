@@ -29,4 +29,23 @@ class FaseFinal:
         pygame.mixer.music.load('./sons/music-pirata.wav')
         pygame.mixer.music.play(0)
 
+    def parar(self):
+        pygame.mixer.music.stop()
+
+    def Lose(self, superficie):
+        txt='Você morreu!'
+        pygame.font.init()
+        fonte=pygame.font.get_default_font()
+        fontesys=pygame.font.SysFont(fonte, 40)
+        self.txttela = fontesys.render(txt, 1, (255,255,255)) 
+
+        self.imagemOpaca = pygame.image.load('./imagens/fase1/imagemOpaca.png')
+        self.rectOpaca = self.imagemOpaca.get_rect()
+        self.rectOpaca.centerx=400
+        self.rectOpaca.centery=200
+
+        self.imagemOpaca.set_alpha(180)
+        superficie.blit(self.imagemOpaca, self.rectOpaca)
+        superficie.blit(self.txttela,(200,200))
+
 

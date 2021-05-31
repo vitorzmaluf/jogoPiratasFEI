@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 import pygame
 from pygame.event import post
-=======
 import pygame, glob
->>>>>>> cb1efa19cae74bf3998da580cc6cf082be08fcd6
 from pygame.locals import *
 
 class Shoot(pygame.sprite.Sprite):

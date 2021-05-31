@@ -19,9 +19,14 @@ class FaseFinal:
         self.proximaFase = False
         self.disparos = []
 
+
+
     def colocar(self, superficie):
         superficie.blit(self.imagemCeu, self.rectCeu)
         superficie.blit(self.imagemBorda, self.rectBorda)
-    
-    #def disparar(self, superficie, )
+
+    def tocar(self):
+        pygame.mixer.music.load('./sons/music-pirata.wav')
+        pygame.mixer.music.play(0)
+
 

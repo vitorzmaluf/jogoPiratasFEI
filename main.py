@@ -31,6 +31,8 @@ def pirata():
     fase3 = Fase3()
     fasefinal = FaseFinal()
 
+    playMusic = False
+
     bossCount = 0
 
     imagemFundo = pygame.image.load('./imagens/cenario/bkgrnd.png')
@@ -39,7 +41,7 @@ def pirata():
 
     fases = [fase1, fase2, fase3, fasefinal]
 
-    faseAtual = fasefinal
+    faseAtual = fases[0]
     #fases[0]
     while running:
         if faseAtual.proximaFase:
@@ -57,7 +59,7 @@ def pirata():
                 player.rect.left -= player.velocidade
             elif keys[K_RIGHT]:
                 player.rect.right += player.velocidade
-            if keys[K_UP]:
+            elif keys[K_UP]:
                 player.rect.top -= player.velocidade
             elif keys[K_DOWN]:
                 player.rect.bottom += player.velocidade
@@ -98,6 +100,9 @@ def pirata():
         player.colocar(screen)
 
         if(faseAtual == fasefinal):
+            if(playMusic == False):
+                fasefinal.tocar()
+                playMusic = True
             if(boss.life > 0):
                 boss.colocar(screen, bossCount//24)
                 boss.movimento()
@@ -109,6 +114,7 @@ def pirata():
                     else:
                         boss.flip = 0
                         ran = random.randint( 0, 3000 )
+                        print(ran)
                         if(ran < 100):
                             boss.velocidade = -boss.velocidade
                             ran_atk = random.randint( 0, 200 )
@@ -126,9 +132,10 @@ def pirata():
                 if(bossCount > 144):
                     bossCount = 0
             
-            #Morreu
             else:
                 boss.bossState = 2
+                #if(bossCount > 144):
+                #    bossCount = 144
 
 
 

@@ -1,11 +1,20 @@
 import pygame
 from pygame.locals import *
 
+class Shoot(pygame.sprite.Sprite):
+    def __init__(self):
+        self.Shoot = pygame.image.load('./imagens/shot.png')
+
+    
 class Player(pygame.sprite.Sprite):
+    
+
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.ImagemPlayer = pygame.image.load('./imagens/player.png')
         self.livre = True
+
+        shoots = []
 
         self.rect = self.ImagemPlayer.get_rect()
         self.rect.centerx=150
@@ -13,25 +22,10 @@ class Player(pygame.sprite.Sprite):
 
         self.vida = True
         self.velocidade = 3
-        # self.surf = pygame.Surface((75, 25))
-        # self.surf.fill((255, 255, 255))
     
     def movimento(self, objetosFase):
         xAnt = self.rect.x - self.velocidade
         yAnt = self.rect.y - self.velocidade
- 
-
-        # if self.rect.collidelist(objetosFase) >= 0:
-        #     print("Colidiu")
-        #     self.livre = False
-        # else:
-        #     self.livre = True
-        
-        # keys = pygame.key.get_pressed()
-        # if(self.livre):
-        #     if not keys[K_LEFT] and not keys[K_RIGHT] and not keys[K_UP] and not keys[K_DOWN]:
-        #         self.livre = True
-
 
         if self.vida:
             if self.rect.left <= 0:
@@ -42,6 +36,11 @@ class Player(pygame.sprite.Sprite):
                 self.rect.bottom = 400
             if self.rect.top < 60:
                 self.rect.top = 60
+
+    def disparou(self):
+        self.rect = self.Shoot.get_rect()
+        self.rect.centerx= self.rect.left
+        self.rect.centery= self.rect.top
 
 
     def colocar(self, superficie):

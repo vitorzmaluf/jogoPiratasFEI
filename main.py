@@ -35,6 +35,7 @@ def pirata():
     playMusic = False
 
     bossCount = 0
+    screenCount = 0
 
     imagemFundo = pygame.image.load('./imagens/cenario/bkgrnd.png')
     # Run until the user asks to quit
@@ -147,13 +148,27 @@ def pirata():
 
                 if(player.x >= boss.x and player.x <= boss.x+80 and player.y >= boss.y and player.y <= boss.y+120):
                     player.vida = False
+
+                if (player.vida == False):
                     fasefinal.Lose(screen)
+                    screenCount += 1
+                    print(screenCount)
+                    if(screenCount > 500):
+                        screenCount = 0
+                        faseAtual = fases[0]
+                        fasefinal.parar()
 
             else:
                 boss.bossState = 2
                 bossCount += 1
                 if(bossCount > 144):
                     bossCount = 144
+                    fasefinal.Win(screen)
+                    screenCount += 1
+                    if(screenCount > 500):
+                        screenCount = 0
+                        faseAtual = fases[0]
+                        fasefinal.parar()
                 
                 fasefinal.parar()
 

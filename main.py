@@ -5,6 +5,7 @@ import random
 
 
 from models.Player import Player
+from models.Player import Shoot
 from models.FaseFinal import FaseFinal
 from models.Boss import Boss
 from models.Fase1 import Fase1
@@ -40,8 +41,9 @@ def pirata():
     running = True
 
     fases = [fase1, fase2, fase3, fasefinal]
+    shoots = []
 
-    faseAtual = fases[0]
+    faseAtual = fasefinal
     #fases[0]
     while running:
         if faseAtual.proximaFase:
@@ -85,6 +87,7 @@ def pirata():
                         faseAtual.checaColisoes(player)
                         print('test')
                     else:
+                        shoots.append(Shoot(player.rect.left+50, player.rect.top+40))
                         print('atirou')
 
                     # while pygame.key.get_pressed()[pygame.K_SPACE]:
@@ -98,6 +101,12 @@ def pirata():
         screen.blit(imagemFundo, [0, 0])
         faseAtual.colocar(screen)
         player.colocar(screen)
+
+        for n in shoots:
+            n.atualizar()
+            n.colocar(screen)
+            if(n.x >= 700):
+                shoots.remove(n)
 
         if(faseAtual == fasefinal):
             if(playMusic == False):

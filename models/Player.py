@@ -1,20 +1,32 @@
 import pygame
+from pygame.event import post
 from pygame.locals import *
 
 class Shoot(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, pos_x, pos_y):
         self.Shoot = pygame.image.load('./imagens/shot.png')
+        self.rect = self.Shoot.get_rect()
+        self.rect.centerx=pos_x
+        self.rect.centery=pos_y
+        self.vel = 1
 
+        self.x = pos_x
+
+    def atualizar(self):
+        self.rect.x += self.vel
+        self.x = self.rect.x
+
+
+    def colocar(self, superficie):
+        superficie.blit(self.Shoot, self.rect)
     
 class Player(pygame.sprite.Sprite):
-    
 
+    
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.ImagemPlayer = pygame.image.load('./imagens/player.png')
         self.livre = True
-
-        shoots = []
 
         self.rect = self.ImagemPlayer.get_rect()
         self.rect.centerx=150
@@ -36,11 +48,6 @@ class Player(pygame.sprite.Sprite):
                 self.rect.bottom = 400
             if self.rect.top < 60:
                 self.rect.top = 60
-
-    def disparou(self):
-        self.rect = self.Shoot.get_rect()
-        self.rect.centerx= self.rect.left
-        self.rect.centery= self.rect.top
 
 
     def colocar(self, superficie):
